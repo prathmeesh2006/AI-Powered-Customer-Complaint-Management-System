@@ -1,0 +1,26 @@
+CUSTOMER COMPLAINT REPORT
+Reference: CC-2026-0047
+Date: September 12, 2026
+
+Customer: City Hospital Pharmacy
+Contact: Dr. Sarah Johnson, Pharmacist-in-Charge
+Email: sjohnson@cityhospital.org
+
+Product: Metformin Tablets 500mg
+Batch Number: MET240901
+Manufacturing Date: July 2024
+Expiry Date: July 2026
+Quantity Affected: 3 tablets
+
+Complaint Type: Foreign Matter Contamination
+
+Complaint Description:
+During routine dispensing, our pharmacist identified small black metallic particles
+embedded within 3 tablets from the above batch. The particles appear to be approximately
+1-2mm in diameter and are visible to the naked eye. One tablet had already been dispensed
+to a patient who reported no adverse effects.
+
+This batch was received on August 1, 2026. Remaining stock has been quarantined pending
+investigation.
+
+Urgency: HIGH — Patient safety concern

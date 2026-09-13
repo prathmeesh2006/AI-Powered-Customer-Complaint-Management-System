@@ -1,0 +1,21 @@
+From: ABC Pharmacy <quality@abcpharmacy.com>
+To: Quality Team <quality@pharmamanufacturer.com>
+Date: September 10, 2026
+Subject: Customer Complaint — Discolored Capsules
+
+Dear Quality Team,
+
+We received a complaint from one of our customers regarding Amoxicillin Capsules 500 mg
+from batch AMX240602. The customer reported that 12 capsules appeared discolored
+(yellowish-brown) compared to the expected white color.
+
+The affected pack was purchased on September 8, 2026.
+The expiry date on the packaging shows June 2027.
+Manufacturing date: January 2024.
+
+This appears to be a Product Defect. Please investigate and advise on appropriate action.
+
+Regards,
+John Smith
+Pharmacy Manager
+ABC Pharmacy

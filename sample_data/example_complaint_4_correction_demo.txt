@@ -1,0 +1,26 @@
+COMPLAINT EMAIL — For Conversational Correction Demo
+====================================================
+
+Use this complaint to demonstrate the conversational correction workflow.
+
+Step 1: Paste this text and analyze it.
+Step 2: Note that batch number and quantity are intentionally wrong.
+Step 3: Send correction: "Sorry, the batch number is BMX240602 and the affected quantity is 48 capsules."
+Step 4: Observe that only those two fields update.
+
+---
+
+From: Regional Distributor <rd@distrib.com>
+Date: September 13, 2026
+
+Dear Quality Assurance Team,
+
+We received a complaint regarding Benzylpenicillin Powder for Injection 600mg
+from one of our clients. Batch number: BMX240501 (12 vials affected).
+
+The product reportedly showed visible particulate matter when reconstituted.
+The complaint date is September 11, 2026.
+
+Please investigate urgently.
+
+Regional Distributor QA Team
