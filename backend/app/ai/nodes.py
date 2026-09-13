@@ -40,21 +40,49 @@ def _get_groq_client() -> Groq:
     return Groq(api_key=settings.groq_api_key)
 
 
+FALLBACK_MODELS = ["qwen/qwen3.8-27b", "groq/compound-mini", "groq/compound", "openai/gpt-oss-20b"]
+
+
+_UNAVAILABLE_MODELS: set[str] = set()
+
+
 def _call_groq(
     client: Groq,
     messages: List[Dict[str, str]],
     temperature: float = 0.1,
 ) -> str:
     """Make a Groq API call and return the raw text content."""
-    response = client.chat.completions.create(
-        model=settings.groq_model,
-        messages=messages,
-        temperature=temperature,
-        max_tokens=2048,
-        response_format={"type": "json_object"},  # enforce JSON output
-        timeout=settings.groq_timeout,
-    )
-    return response.choices[0].message.content or ""
+    models_to_try = [settings.groq_model]
+    for m in FALLBACK_MODELS:
+        if m not in models_to_try:
+            models_to_try.append(m)
+
+    last_error = None
+    for model_name in models_to_try:
+        if model_name in _UNAVAILABLE_MODELS:
+            continue
+        try:
+            response = client.chat.completions.create(
+                model=model_name,
+                messages=messages,
+                temperature=temperature,
+                max_tokens=2048,
+                response_format={"type": "json_object"},  # enforce JSON output
+                timeout=settings.groq_timeout,
+            )
+            return response.choices[0].message.content or ""
+        except Exception as err:
+            last_error = err
+            err_msg = str(err).lower()
+            if "model_not_found" in err_msg or "decommissioned" in err_msg or "404" in err_msg or "400" in err_msg or "not exist" in err_msg or "not found" in err_msg or "timeout" in err_msg:
+                logger.warning("Groq model '%s' unavailable (%s). Marking unavailable and trying fallback...", model_name, err)
+                _UNAVAILABLE_MODELS.add(model_name)
+                continue
+            raise err
+
+    if last_error:
+        raise last_error
+    raise RuntimeError("No Groq model succeeded")
 
 
 # ─────────────────────────────────────────────

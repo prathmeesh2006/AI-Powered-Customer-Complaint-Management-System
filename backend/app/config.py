@@ -9,8 +9,8 @@ from typing import List
 class Settings(BaseSettings):
     # Groq LLM
     groq_api_key: str = ""
-    groq_model: str = "gemma2-9b-it"
-    groq_timeout: int = 60
+    groq_model: str = "llama-3.1-8b-instant"
+    groq_timeout: int = 15
 
     # Database
     database_url: str = "sqlite:///./aivoa_dev.db"

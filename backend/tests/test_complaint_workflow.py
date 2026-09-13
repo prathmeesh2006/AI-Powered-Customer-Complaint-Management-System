@@ -33,7 +33,7 @@ def test_health_check():
     data = resp.json()
     assert data["status"] == "ok"
     assert "model" in data
-    print(f"✓ Health check passed. Model: {data['model']}")
+    print(f"[OK] Health check passed. Model: {data['model']}")
 
 
 # ─────────────────────────────────────────────
@@ -60,7 +60,7 @@ def test_analyze_text_extracts_structured_fields():
     assert complaint.get("batch_lot_number"), "Batch number should be extracted"
     assert data.get("copilot_message"), "Copilot message should be present"
     assert "risk" in data, "Risk assessment should be present"
-    print(f"✓ Text extraction passed. Product: {complaint.get('product_name')}, Batch: {complaint.get('batch_lot_number')}")
+    print(f"[OK] Text extraction passed. Product: {complaint.get('product_name')}, Batch: {complaint.get('batch_lot_number')}")
 
 
 # ─────────────────────────────────────────────
@@ -91,7 +91,7 @@ def test_missing_fields_detected():
 
     # Missing fields should be reported
     assert len(missing) > 0, "Missing fields should be detected for incomplete complaint"
-    print(f"✓ Missing fields detection passed. Missing: {missing}")
+    print(f"[OK] Missing fields detection passed. Missing: {missing}")
 
 
 # ─────────────────────────────────────────────
@@ -130,7 +130,7 @@ def test_followup_batch_number_correction():
         f"Batch should be updated to BMX240602, got: {updated.get('batch_lot_number')}"
     # Other fields should be preserved
     assert updated.get("product_name") == "Amoxicillin Capsules", "Product name should not change"
-    print(f"✓ Batch correction passed. New batch: {updated.get('batch_lot_number')}")
+    print(f"[OK] Batch correction passed. New batch: {updated.get('batch_lot_number')}")
 
 
 # ─────────────────────────────────────────────
@@ -168,7 +168,7 @@ def test_followup_quantity_correction():
     assert "48" in str(qty), f"Quantity should contain '48', got: '{qty}'"
     # Batch should be unchanged
     assert updated.get("batch_lot_number") == "MET240901", "Batch should not change"
-    print(f"✓ Quantity correction passed. New quantity: {qty}")
+    print(f"[OK] Quantity correction passed. New quantity: {qty}")
 
 
 # ─────────────────────────────────────────────
@@ -197,7 +197,7 @@ def test_risk_assessment_present_and_valid():
     assert risk.get("rationale"), "Risk rationale should be present"
     assert risk.get("suggested_next_action"), "Suggested action should be present"
 
-    print(f"✓ Risk assessment passed. Severity: {risk['severity']}, Priority: {risk['priority']}")
+    print(f"[OK] Risk assessment passed. Severity: {risk['severity']}, Priority: {risk['priority']}")
 
 
 # ─────────────────────────────────────────────
@@ -237,7 +237,7 @@ def test_qms_commit():
 
     assert data.get("complaint_id"), "Should return a complaint ID"
     assert data.get("status") == "committed"
-    print(f"✓ QMS commit passed. ID: {data['complaint_id']}")
+    print(f"[OK] QMS commit passed. ID: {data['complaint_id']}")
 
     # Verify we can retrieve it
     complaint_id = data["complaint_id"]
@@ -245,7 +245,7 @@ def test_qms_commit():
     assert get_resp.status_code == 200
     fetched = get_resp.json()
     assert fetched["batch_lot_number"] == "AMX240602"
-    print(f"✓ Committed complaint retrievable: {fetched['id']}")
+    print(f"[OK] Committed complaint retrievable: {fetched['id']}")
 
 
 # ─────────────────────────────────────────────
@@ -256,11 +256,11 @@ def test_short_text_rejected():
     """Very short text should be rejected with 422."""
     resp = client.post("/api/complaints/analyze-text", json={"text": "hi"})
     assert resp.status_code == 422
-    print("✓ Short text validation passed")
+    print("[OK] Short text validation passed")
 
 
 def test_missing_text_field_rejected():
     """Missing text field should return 422."""
     resp = client.post("/api/complaints/analyze-text", json={})
     assert resp.status_code == 422
-    print("✓ Missing field validation passed")
+    print("[OK] Missing field validation passed")
